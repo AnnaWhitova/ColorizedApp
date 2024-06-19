@@ -7,23 +7,33 @@
 
 import UIKit
 
+protocol SetColorViewControllerDelegate: AnyObject {
+    func setColor(from color: UIColor)
+}
+
 class ColorizedViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
 
-        // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        let setColorVC = segue.destination as? SetColorViewController
+        setColorVC?.viewColor = view.backgroundColor
+        setColorVC?.delegate = self
+
     }
-    */
 
 }
+
+extension ColorizedViewController: SetColorViewControllerDelegate {
+    func setColor(from color: UIColor) {
+        view.backgroundColor = color
+    }
+    
+}
+
+
+
